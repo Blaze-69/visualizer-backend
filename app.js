@@ -6,6 +6,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const healthcheck = require('./routes/api');
 const auth = require('./routes/auth');
+const comment = require('./routes/comment');
+const helmet = require("helmet");
+const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
 const URI = process.env.URI || 'mongodb://localhost:27017/visualizer';
@@ -35,12 +38,23 @@ connectWithRetry(URI, {
     useUnifiedTopology: true,
 });
 
+app.use(helmet());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', healthcheck);
 app.use('/api', auth);
+app.use('/api', comment);
 
-app.listen(port, () => {
-    console.log('Server has started!');
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(422).send({ success: false, error: err.message });
 });
+
+const http = require('http').createServer(app)
+
+http.listen(port, () => {
+    console.log("Server has started!");
+});
+
