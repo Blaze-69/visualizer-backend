@@ -2,7 +2,7 @@ const Comment = require("../models/comment");
 const Algorithm = require("../models/algorithm");
 
 exports.allComments = (req, res) => {
-    const { algoId } = req.body;
+    const { algoId } = req.params;
 
     Algorithm.findById(algoId)
         .populate({
