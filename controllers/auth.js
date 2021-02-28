@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 exports.signin = (req, res) => {
 
@@ -16,7 +18,7 @@ exports.signin = (req, res) => {
                     expiresIn: "24h",
                 });
 
-                res.status(200).json({ token, user });
+                res.status(200).json({ token, user: existingUser });
             }
             else {
                 return res.status(400).json({ error: "Invalid email or password" });
@@ -40,6 +42,8 @@ exports.signup = (req, res) => {
             return res.status(400).json({ message: "User with that email already exist" });
         }
     });
+
+    user.password = bcrypt.hashSync(user.password, saltRounds);
 
     const _user = new User(user);
 

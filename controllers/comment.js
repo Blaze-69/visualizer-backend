@@ -7,7 +7,11 @@ exports.allComments = (req, res) => {
     Algorithm.findById(algoId)
         .populate({
             path: "comments",
-            model: "Comment"
+            model: "Comment",
+            populate: {
+                path: "userId",
+                model: "User",
+            }
         })
         .exec((error, data) => {
             if (error) {
