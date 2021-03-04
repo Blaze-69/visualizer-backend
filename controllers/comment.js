@@ -2,9 +2,8 @@ const Comment = require("../models/comment");
 const Algorithm = require("../models/algorithm");
 
 exports.allComments = (req, res) => {
-    const { algoId } = req.params;
 
-    Algorithm.findById(algoId)
+    Algorithm.find({ name: req.query.name})
         .populate({
             path: "comments",
             model: "Comment",
@@ -18,12 +17,13 @@ exports.allComments = (req, res) => {
                 return res.status(400).json({ error });
             }
             if (data) {
-                return res.status(200).json({ comments: data.comments });
+                return res.status(200).json({ algorithm: data});
             }
         });
 };
 
 exports.addComment = (req, res) => {
+    console.log(req.body);
     const { commentBody, algoId, userId } = req.body;
 
     const _comment = new Comment({ commentBody, userId });
