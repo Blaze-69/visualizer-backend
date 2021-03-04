@@ -4,8 +4,9 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 exports.signin = (req, res) => {
-
+    console.log(req.body);
     const { user } = req.body;
+    console.log("sign",user);
 
     User.findOne({ email: user.email }).exec((error, existingUser) => {
         if (error) {
