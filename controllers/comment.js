@@ -2,6 +2,7 @@ const Comment = require("../models/comment");
 const Algorithm = require("../models/algorithm");
 
 exports.allComments = (req, res) => {
+
     Algorithm.find({ name: req.query.name})
         .populate({
             path: "comments",
