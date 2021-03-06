@@ -42,22 +42,24 @@ exports.signup = (req, res) => {
         if (existingUser) {
             return res.status(400).json({ message: "User with that email already exist" });
         }
-    });
+        else {
+              user.password = bcrypt.hashSync(user.password, saltRounds);
 
-    user.password = bcrypt.hashSync(user.password, saltRounds);
+              const _user = new User(user); 
 
-    const _user = new User(user);
+              _user.save((error, data) => {
+              if (error) {
+                    return res.status(400).json({ error });
+                    }
 
-    _user.save((error, data) => {
-        if (error) {
-            return res.status(400).json({ error });
-        }
-
-        if (data) {
-            return res.status(200).json({
+              if (data) {
+                     return res.status(200).json({
                 message: "Registration Successful",
             });
+                     }
+           });
+
         }
-    }
-    );
+    });
+
 };
