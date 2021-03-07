@@ -7,7 +7,7 @@ const { allComments, addComment, updateComment, deleteComment } = require("../co
 
 router.get("/comment", allComments);
 router.post("/comment", requireSignin, commentValidated, isCommentValidated, addComment);
-router.patch("/comment", requireSignin, commentValidated, isCommentValidated, updateComment);
-router.delete("/comment", requireSignin, deleteComment);
+router.patch("/comment/:id", requireSignin, commentValidated, isCommentValidated, updateComment);
+router.delete("/comment/:id", requireSignin, deleteComment);
 
 module.exports = router;

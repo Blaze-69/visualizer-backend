@@ -23,10 +23,9 @@ exports.allComments = (req, res) => {
 };
 
 exports.addComment = (req, res) => {
-    console.log(req.body);
-    const { commentBody, algoId, userId } = req.body;
-
-    const _comment = new Comment({ commentBody, userId });
+    const { comment } = req.body;
+        console.log(comment);
+    const _comment = new Comment({ commentBody:comment.commentBody, userId:comment.userId._id });
 
     _comment.save((error, data) => {
         if (error) {
@@ -35,7 +34,7 @@ exports.addComment = (req, res) => {
 
         if (data) {
             Algorithm.updateOne(
-                { _id: algoId },
+                { _id: comment.algoId },
                 { $push: { comments: [data._id] } },
             )
                 .exec((error, data) => {
@@ -51,8 +50,10 @@ exports.addComment = (req, res) => {
 };
 
 exports.updateComment = (req, res) => {
-    const { commentId, commentBody } = req.body;
-
+  
+    const commentId = req.params.id;
+    const commentBody = req.body.comment.commentBody;
+    console.log("update",commentId,commentBody);
     Comment.updateOne(
         { _id: commentId },
         {
@@ -71,8 +72,9 @@ exports.updateComment = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-    const { commentId, algoId } = req.body;
-
+   console.log("delete",req.query.algoId,req.params.id);
+    const commentId=req.params.id;
+    const algoId = req.query.algoId;
     Algorithm.findByIdAndUpdate(algoId, { $pull: { comments: commentId } })
         .exec((error, data) => {
             if (error) {
