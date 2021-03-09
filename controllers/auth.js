@@ -40,7 +40,7 @@ exports.signup = (req, res) => {
             return res.status(400).json({ error });
         }
         if (existingUser) {
-            return res.status(400).json({ message: "User with that email already exist"});
+            return res.status(400).json({ error: "User with that email already exist"});
         }
         else {
               user.password = bcrypt.hashSync(user.password, saltRounds);
