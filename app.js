@@ -12,7 +12,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
-const URI = process.env.URI || 'mongodb://localhost:27017/visualizer';
+const URI = process.env.URI || 'mongodb+srv://Akash:iqNNO4NtnUOtKXHv@cluster0.iyuwe.mongodb.net/Visualizers?retryWrites=true&w=majority';
 
 const connectWithRetry = (uris, options, maxAttempts = 5) => {
     connectWithRetry.timeout = connectWithRetry.timeout || 0;
