@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: false }));
 
 /*const Algorithm = require("./models/algorithm");
 
-var arr = [{name:"Linked List"},{name:"Double Linked List"},{name:"Stack"},{name:"Queue"}];
+var arr = [{name:"Bubble Sort"},{name:"Merge Sort"},{name:"Selection Sort"},{name:"Quick Sort"},{name:"Insertion Sort"},{name:"Linked List"},{name:"Double Linked List"},{name:"Stack"},{name:"Queue"}];
 
 arr.forEach(function(item){
   Algorithm.create(item,{ unique: true },function(err,algo){
