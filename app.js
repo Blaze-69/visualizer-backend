@@ -7,9 +7,7 @@ const mongoose = require("mongoose");
 const healthcheck = require('./routes/api');
 const auth = require('./routes/auth');
 const comment = require('./routes/comment');
-const helmet = require("helmet");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 const URI = process.env.URI || 'mongodb+srv://Akash:iqNNO4NtnUOtKXHv@cluster0.iyuwe.mongodb.net/Visualizers?retryWrites=true&w=majority';
@@ -39,8 +37,6 @@ connectWithRetry(URI, {
     useUnifiedTopology: true,
 });
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(helmet());
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
