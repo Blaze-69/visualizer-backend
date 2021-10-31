@@ -40,25 +40,47 @@ connectWithRetry(URI, {
 });
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(helmet());
-app.use(cors({
-'allowedHeaders':['Content-Type','token', 'authorization','*' ,'Content-Length', 'X-Requested-With'],
-'origin': '*',
-'preflightContinue':true}));
+app.use(
+    cors({
+        allowedHeaders: [
+            "Content-Type",
+            "token",
+            "authorization",
+            "*",
+            "Content-Length",
+            "X-Requested-With",
+        ],
+        origin: "*",
+        preflightContinue: true,
+    })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-/*const Algorithm = require("./models/algorithm");
+// const Algorithm = require("./models/algorithm");
 
-var arr = [{name:"Bubble Sort"},{name:"Merge Sort"},{name:"Selection Sort"},{name:"Quick Sort"},{name:"Insertion Sort"},{name:"Linked List"},{name:"Double Linked List"},{name:"Stack"},{name:"Queue"}];
+// var arr = [
 
-arr.forEach(function(item){
-  Algorithm.create(item,{ unique: true },function(err,algo){
-  if(err){
-  console.log(err);}
-  else
-  {console.log(algo);}
-});
-});*/
+// Algorithm({name:"Bubble Sort"}),
+// Algorithm({name:"Merge Sort"}),
+// Algorithm({name:"Selection Sort"}),
+// Algorithm({name:"Quick Sort"}),
+// Algorithm({name:"Insertion Sort"}),
+// Algorithm({name:"Linked List"}),
+// Algorithm({name:"Double Linked List"}),
+// Algorithm({name:"Stack"}),
+// Algorithm({name:"Queue"})
+// ];
+
+// arr.forEach( function(item){
+//   item.save({ unique: true },function(err,algo){
+//   if(err){
+//   console.log(err);}
+//   else
+//   {console.log(algo);}
+// });
+// });
 
 app.use('/api', healthcheck);
 app.use('/api', auth);

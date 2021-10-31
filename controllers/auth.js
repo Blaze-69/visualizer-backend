@@ -54,7 +54,7 @@ exports.signup = (req, res) => {
 
               if (data) {
                      return res.status(200).json({
-                message: "Registration Successful", user:_user
+                message: "Registration Successfully!", user:_user
             });
                      }
            });
